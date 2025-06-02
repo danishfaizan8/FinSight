@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/finsightdb
+    driver-class-name: org.postgresql.Driver
+    username: danish
+    password: danish
+
+  jpa:
+    hibernate:
+      ddl-auto: update  # change to 'validate' in prod
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+
+server:
+  port: 8081
