@@ -1,46 +1,25 @@
-package com.finsight.backend.model;
+package com.finsight.backend.dto;
 
-import jakarta.persistence.*;
+import com.finsight.backend.model.TradeType;
 
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "trades")
-public class Trade {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class ExternalTradeDTO {
+    private Long id; // External systems often send IDs too
     private String symbol;
-
-    @Enumerated(EnumType.STRING)
     private TradeType type;
-
     private int quantity;
-
     private double price;
-
     private LocalDate tradeDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-    public Trade() {}
-
-    public Trade(String symbol, TradeType type, int quantity, double price, LocalDate tradeDate) {
-        this.symbol = symbol;
-        this.type = type;
-        this.quantity = quantity;
-        this.price = price;
-        this.tradeDate = tradeDate;
-    }
-
-    // Getters and setters
+    // Getters & Setters
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getSymbol() {
@@ -81,13 +60,5 @@ public class Trade {
 
     public void setTradeDate(LocalDate tradeDate) {
         this.tradeDate = tradeDate;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

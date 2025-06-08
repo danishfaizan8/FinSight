@@ -1,46 +1,37 @@
-package com.finsight.backend.model;
+package com.finsight.backend.dto;
 
-import jakarta.persistence.*;
+import com.finsight.backend.model.TradeType;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "trades")
-public class Trade {
+public class TradeDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Symbol must not be blank")
     private String symbol;
 
-    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Trade type must be specified")
     private TradeType type;
 
+    @Min(value = 1, message = "Quantity must be at least 1")
     private int quantity;
 
+    @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0.0")
     private double price;
 
+    @NotNull(message = "Trade date is required")
     private LocalDate tradeDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-    public Trade() {}
-
-    public Trade(String symbol, TradeType type, int quantity, double price, LocalDate tradeDate) {
-        this.symbol = symbol;
-        this.type = type;
-        this.quantity = quantity;
-        this.price = price;
-        this.tradeDate = tradeDate;
-    }
-
-    // Getters and setters
+    // Getters & Setters
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getSymbol() {
@@ -81,13 +72,5 @@ public class Trade {
 
     public void setTradeDate(LocalDate tradeDate) {
         this.tradeDate = tradeDate;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }
