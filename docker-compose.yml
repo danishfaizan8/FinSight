@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5433:5432"  # Map container's 5432 to host's 5433
+    environment:
+      POSTGRES_USER: danish
+      POSTGRES_PASSWORD: danish
+      POSTGRES_DB: finsightdb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

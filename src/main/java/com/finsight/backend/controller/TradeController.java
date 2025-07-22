@@ -44,6 +44,12 @@ public class TradeController {
         return tradeService.getPerformanceByUsername(username);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<TradeDTO> getTradeById(@PathVariable Long id) {
+        TradeDTO trade = tradeService.getTradeById(id);
+        return ResponseEntity.ok(trade);
+    }
+
 
     @PostMapping
     public TradeDTO createTrade(@RequestBody @Valid TradeDTO dto) {
